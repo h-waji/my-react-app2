@@ -2,13 +2,24 @@ import { useState } from 'react';
 import './styles.css'
 
 export const App = () => {
+    const [itemText, setItemText] = useState("");
     const [incompleteItems, setIncompleteItems] = useState(["モダンな技術の学習", "ソフトウェアテスト工学"]);
     const [completeItems, setCompleteItems] = useState(["QAエンジニアの役割", "体重測定"]);
+
+    const onChangeItemText = (event) => setItemText(event.target.value);
+
+    const onClickAdd = () => {
+        if (itemText === "") return;
+        const newItems = [...incompleteItems, itemText];
+        console.log(newItems);
+        setIncompleteItems(newItems);
+    };
+
     return (
         <>
             <div className='input-area'>
-                <input placeholder='試したいことを入力'></input>
-                <button>追加</button>
+                <input placeholder='試したいことを入力' value={itemText} onChange={onChangeItemText}></input>
+                <button onClick={onClickAdd}>追加</button>
             </div>
             <div className='incomplete-area'>
                 <p className='title'>試したいこと</p>
