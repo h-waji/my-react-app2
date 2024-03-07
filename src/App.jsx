@@ -40,9 +40,16 @@ export const App = () => {
         setIncompleteItems(newIncompleteItems);
     };
 
+    const isMaxLimit = incompleteItems.length >= 6;
+
     return (
         <>
-            <InputItem itemText={itemText} onChange={onChangeItemText} onClick={onClickAdd} />
+            <InputItem itemText={itemText} onChange={onChangeItemText} onClick={onClickAdd} disabled={isMaxLimit} />
+            {isMaxLimit && (
+                <p style={{ color: "red" }}>
+                    Max 6
+                </p>
+            )}
             <IncompleteItems items={incompleteItems} onClickComplete={onClickComplete} onClickDelete={onClickDelete} />
             <CompleteItems items={completeItems} onClickBack={onClickBack} />
         </>
