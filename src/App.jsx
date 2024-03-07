@@ -15,6 +15,20 @@ export const App = () => {
         setIncompleteItems(newItems);
     };
 
+    const onClickDelete = (i) => {
+        const newItems = [...incompleteItems];
+        newItems.splice(i, 1);
+        setIncompleteItems(newItems);
+    };
+
+    const onClickComplete = (i) => {
+        const newIncompleteItems = [...incompleteItems];
+        newIncompleteItems.splice(i, 1);
+        const newCompleteItems = [...completeItems, incompleteItems[i]];
+        setIncompleteItems(newIncompleteItems);
+        setCompleteItems(newCompleteItems);
+    };
+
     return (
         <>
             <div className='input-area'>
@@ -24,12 +38,12 @@ export const App = () => {
             <div className='incomplete-area'>
                 <p className='title'>試したいこと</p>
                 <ul>
-                    {incompleteItems.map((item) => (
+                    {incompleteItems.map((item, i) => (
                             <li key={item}>
                                 <div className='list-row'>
                                     <p className='try-item'>{item}</p>
-                                    <button>完了</button>
-                                    <button>削除</button>
+                                    <button onClick={() => onClickComplete(i)}>完了</button>
+                                    <button onClick={() => onClickDelete(i)}>削除</button>
                                 </div>
                             </li>
                     ))}
