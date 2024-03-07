@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import './styles.css'
+import { InputItem } from './components/InputItem';
+import { IncompleteItems } from './components/IncompleteItems';
+import { CompleteItems } from './components/CompleteItems';
 
 export const App = () => {
     const [itemText, setItemText] = useState("");
@@ -39,37 +42,9 @@ export const App = () => {
 
     return (
         <>
-            <div className='input-area'>
-                <input placeholder='試したいことを入力' value={itemText} onChange={onChangeItemText}></input>
-                <button onClick={onClickAdd}>追加</button>
-            </div>
-            <div className='incomplete-area'>
-                <p className='title'>試したいこと</p>
-                <ul>
-                    {incompleteItems.map((item, i) => (
-                            <li key={item}>
-                                <div className='list-row'>
-                                    <p className='try-item'>{item}</p>
-                                    <button onClick={() => onClickComplete(i)}>完了</button>
-                                    <button onClick={() => onClickDelete(i)}>削除</button>
-                                </div>
-                            </li>
-                    ))}
-                </ul>
-            </div>
-            <div className='complete-area'>
-                <p className='title'>試したこと（新しい体験・学んだこと）</p>
-                <ul>
-                    {completeItems.map((item, i) => (
-                        <li key={item}>
-                            <div className='list-row'>
-                                <p className='try-item'>{item}</p>
-                                <button onClick={() => onClickBack(i)}>戻す</button>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            <InputItem itemText={itemText} onChange={onChangeItemText} onClick={onClickAdd} />
+            <IncompleteItems items={incompleteItems} onClickComplete={onClickComplete} onClickDelete={onClickDelete} />
+            <CompleteItems items={completeItems} onClickBack={onClickBack} />
         </>
     );
 }
